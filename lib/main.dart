@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_viewmodel/base/MainViewModel.dart';
 
 import 'base/vm/ViewModelProvider.dart';
+import 'main2.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Scaffold(
+        body: MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
     );
   }
 }
@@ -29,19 +32,26 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends ViewModelProvider<MainViewModel,MyHomePage> {
-
-
+class _MyHomePageState extends ViewModelProvider<MainViewModel, MyHomePage> {
   @override
   Widget buildBody(BuildContext context) {
-    print("$viewModel");
-    return Center(
-        child: Text("12321")
+    return Column(
+      children: [
+        ElevatedButton(child: Text("123"),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return ;
+            }));
+          },
+        ),
+        MyHomePage2(this)
+      ],
     );
   }
 
   @override
   MainViewModel createViewModel() => MainViewModel();
-
-
 }
+
+
+

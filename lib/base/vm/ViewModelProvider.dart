@@ -17,6 +17,7 @@ abstract class ViewModelProvider<S extends ViewModel, T extends StatefulWidget> 
    ViewModelStore getViewModelStore(){
      if(_viewModelStore == null){
        _viewModelStore = ViewModelStore();
+       ViewModelFactory.instance.put(hashCode.toString(), _viewModelStore);
      }
      return _viewModelStore;
   }
@@ -26,22 +27,24 @@ abstract class ViewModelProvider<S extends ViewModel, T extends StatefulWidget> 
     if(viewModel!=null){
       viewModel.onCleared();
     }
+    _viewModelStore.clear();
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    viewModel = createViewModel();
     if(_viewModelStore == null){
       _viewModelStore = getViewModelStore();
     }
-   _viewModelStore.put(S.toString(), viewModel);
+    viewModel = ViewModelFactory.instance.create(this,createViewModel());
   }
 
   @override
   Widget build(BuildContext context) {
     return buildBody(context);
   }
+
+
 
 }

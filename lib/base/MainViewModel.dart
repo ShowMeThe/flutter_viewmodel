@@ -4,6 +4,6 @@ class MainViewModel extends ViewModel{
 
  @override
   void onCleared() {
-
+    print("onCleared");
   }
 }
